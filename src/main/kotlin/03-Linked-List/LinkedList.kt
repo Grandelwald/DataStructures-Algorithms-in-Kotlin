@@ -15,15 +15,33 @@ head, tail 둘다 not null인 상태 => 여러개 있다. ( size == n )
  */
 
 // 모든 링크드 리스트 객체는 처음에 null null 0 로 시작한다.
-class LinkedList<T : Any> : Iterable<T> {
+class LinkedList<T : Any> : Iterable<T>, Collection<T> {
 
     private var head: Node<T>? = null
     private var tail: Node<T>? = null
     // size는 public 하지만 setter는 private하다
-    var size = 0
+    override var size = 0
         private set
 
-    fun isEmpty(): Boolean = size == 0
+    override fun isEmpty(): Boolean = size == 0
+
+    override fun iterator(): Iterator<T> {
+        return LinkedListIterator(this)
+    }
+
+    override fun contains(element: T): Boolean {
+        for(item in this) {
+            if (item == element) return true
+        }
+        return false
+    }
+
+    override fun containsAll(elements: Collection<T>): Boolean {
+        for (searched in elements) {
+            if (!contains(searched)) return false
+        }
+        return true
+    }
 
     override fun toString(): String {
         if (isEmpty()) {
@@ -33,9 +51,7 @@ class LinkedList<T : Any> : Iterable<T> {
         }
     }
 
-    override fun iterator(): Iterator<T> {
-        return LinkedListIterator(this)
-    }
+
 //    push().ver1
 //    fun push(value : T) {
 //        head = `03-Linked-List`.Node(value = value, next = head)
