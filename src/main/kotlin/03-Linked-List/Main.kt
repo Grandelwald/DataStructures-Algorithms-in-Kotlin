@@ -1,6 +1,6 @@
-import sun.awt.image.ImageWatched.Link
+package `03-Linked-List`
 
-fun main(args: Array<String>) {
+fun main() {
 
     "creating and linking nodes".example {
         val node1 = Node(value = 1)

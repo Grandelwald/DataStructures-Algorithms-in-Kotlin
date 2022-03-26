@@ -1,5 +1,5 @@
-/*
-LinkedList
+package `03-Linked-List`/*
+`03-Linked-List`.LinkedList
 
 LinkedList는 노드들이 연결된 거다.
 head 노드
@@ -32,7 +32,7 @@ class LinkedList<T : Any> {
     }
 //    push().ver1
 //    fun push(value : T) {
-//        head = Node(value = value, next = head)
+//        head = `03-Linked-List`.Node(value = value, next = head)
 //        if(tail == null){
 //            tail = head
 //        }

@@ -1,6 +1,6 @@
-/*
-example 함수
-example 함수는 확장함수다.
+package `03-Linked-List`/*
+`03-Linked-List`.example 함수
+`03-Linked-List`.example 함수는 확장함수다.
 
 String 타입 뒤에 확장하여 사용하고,
 매개변수로 람다함수를 받는다.
