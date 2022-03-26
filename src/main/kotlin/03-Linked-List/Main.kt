@@ -101,4 +101,13 @@ fun main() {
         println("After removing at index $index : $list")
         println("Removed value : $removedValue")
     }
+
+    "printing doubles" example {
+        val list = LinkedList<Int>()
+        list.push(3).push(2).push(1).also { println(it) }
+
+        for (item in list) {
+            println("Double: ${item * 2}")
+        }
+    }
 }
