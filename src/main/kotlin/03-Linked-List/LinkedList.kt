@@ -1,4 +1,8 @@
-package `03-Linked-List`/*
+package `03-Linked-List`
+
+import sun.security.ec.point.ProjectivePoint.Mutable
+
+/*
 `03-Linked-List`.LinkedList
 
 LinkedList는 노드들이 연결된 거다.
@@ -15,7 +19,7 @@ head, tail 둘다 not null인 상태 => 여러개 있다. ( size == n )
  */
 
 // 모든 링크드 리스트 객체는 처음에 null null 0 로 시작한다.
-class LinkedList<T : Any> : Iterable<T>, Collection<T> {
+class LinkedList<T : Any> : Iterable<T>, Collection<T>, MutableIterable<T> {
 
     private var head: Node<T>? = null
     private var tail: Node<T>? = null
@@ -25,7 +29,7 @@ class LinkedList<T : Any> : Iterable<T>, Collection<T> {
 
     override fun isEmpty(): Boolean = size == 0
 
-    override fun iterator(): Iterator<T> {
+    override fun iterator(): MutableIterator<T> {
         return LinkedListIterator(this)
     }
 
@@ -60,7 +64,7 @@ class LinkedList<T : Any> : Iterable<T>, Collection<T> {
 //        }
 //        size++
 //    }
-
+    // update 함수들
     fun push(value: T): LinkedList<T> {
         return apply {
             head = Node(value = value, next = head)
@@ -90,6 +94,8 @@ class LinkedList<T : Any> : Iterable<T>, Collection<T> {
     1. 리스트에서 특별한 노드를 찾는다.
     2. 그 노드 뒤에 새로운 노드를 삽입한다.
      */
+
+    // read 함수
     fun nodeAt(index: Int): Node<T>? {
         var currentNode = head
         var currentIndex = 0
@@ -117,6 +123,7 @@ class LinkedList<T : Any> : Iterable<T>, Collection<T> {
         return newNode
     }
 
+    //delete 함수들
     fun pop(): T? {
         if (isEmpty()) return null
         else {

@@ -1,6 +1,7 @@
 package `03-Linked-List`
 
-class LinkedListIterator<T : Any>(private val list: LinkedList<T>) : Iterator<T> {
+class LinkedListIterator<T:Any>(private val list: LinkedList<T>)
+    : Iterator<T>, MutableIterator<T> {
     private var index = 0
     private var lastNode: Node<T>? = null
 
@@ -21,5 +22,17 @@ class LinkedListIterator<T : Any>(private val list: LinkedList<T>) : Iterator<T>
     override fun hasNext(): Boolean {
         // 너의 Iterable이 여전히 읽을 값을 가지고 있는지 Boolean 값을 반환한다.
         return index < list.size
+    }
+
+    override fun remove() {
+        if(index == 1){
+            list.pop()
+        }
+        else{
+            val preNode = list.nodeAt(index-2) ?: return
+            list.removeAfter(preNode)
+            lastNode = preNode
+        }
+        index--
     }
 }
