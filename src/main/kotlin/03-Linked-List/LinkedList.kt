@@ -1,6 +1,6 @@
 package `03-Linked-List`
 
-import sun.security.ec.point.ProjectivePoint.Mutable
+import java.util.function.Predicate
 
 /*
 `03-Linked-List`.LinkedList
@@ -19,22 +19,35 @@ head, tail 둘다 not null인 상태 => 여러개 있다. ( size == n )
  */
 
 // 모든 링크드 리스트 객체는 처음에 null null 0 로 시작한다.
-class LinkedList<T : Any> : Iterable<T>, Collection<T>, MutableIterable<T> {
+class LinkedList<T : Any>
+    : Iterable<T>, Collection<T>, MutableIterable<T>, MutableCollection<T> {
 
+    // basic data for linked list
     private var head: Node<T>? = null
     private var tail: Node<T>? = null
-    // size는 public 하지만 setter는 private하다
+
     override var size = 0
         private set
 
-    override fun isEmpty(): Boolean = size == 0
+    // Any Class Override
+    override fun toString(): String {
+        if (isEmpty()) {
+            return "EmptyList"
+        } else {
+            return head.toString()
+        }
+    }
 
+    // Iterable / Mutable Iterable Interface Override function
     override fun iterator(): MutableIterator<T> {
         return LinkedListIterator(this)
     }
 
+    // Collection Interface Override function
+    override fun isEmpty(): Boolean = size == 0
+
     override fun contains(element: T): Boolean {
-        for(item in this) {
+        for (item in this) {
             if (item == element) return true
         }
         return false
@@ -47,24 +60,63 @@ class LinkedList<T : Any> : Iterable<T>, Collection<T>, MutableIterable<T> {
         return true
     }
 
-    override fun toString(): String {
-        if (isEmpty()) {
-            return "EmptyList"
-        } else {
-            return head.toString()
-        }
+    // MutableCollection Interface Override function
+    override fun add(element: T): Boolean {
+        append(element)
+        return true
     }
 
+    override fun addAll(elements: Collection<T>): Boolean {
+        for (element in elements) {
+            append(element)
+        }
+        return true
+    }
 
-//    push().ver1
-//    fun push(value : T) {
-//        head = `03-Linked-List`.Node(value = value, next = head)
-//        if(tail == null){
-//            tail = head
-//        }
-//        size++
-//    }
-    // update 함수들
+    override fun clear() {
+        head = null
+        tail = null
+        size = 0
+    }
+
+    override fun remove(element: T): Boolean {
+        val iterator = iterator()
+        while (iterator.hasNext()) {
+            val item = iterator.next()
+            if(item == element) {
+                iterator.remove()
+                return true
+            }
+        }
+        return false
+    }
+
+    override fun removeAll(elements: Collection<T>): Boolean {
+        var result = false
+        for (item in elements) {
+            result = remove(item) || result
+        }
+        return result
+    }
+
+    override fun removeIf(filter: Predicate<in T>): Boolean {
+        return super.removeIf(filter)
+    }
+
+    override fun retainAll(elements: Collection<T>): Boolean {
+        var result =false
+        val iterator = this.iterator()
+        while (iterator.hasNext()) {
+            val item = iterator.next()
+            if(!elements.contains(item)){
+                iterator.remove()
+                result = true
+            }
+        }
+        return result
+    }
+
+    // functions for updating data
     fun push(value: T): LinkedList<T> {
         return apply {
             head = Node(value = value, next = head)
@@ -74,7 +126,6 @@ class LinkedList<T : Any> : Iterable<T>, Collection<T>, MutableIterable<T> {
             size++
         }
     }
-
 
     // size == 0 인지 판단후 0 이면 push 사용하고 아니면 append
     fun append(value: T) {
@@ -89,13 +140,7 @@ class LinkedList<T : Any> : Iterable<T>, Collection<T>, MutableIterable<T> {
         size++
     }
 
-    // Insert Operations
-    /*
-    1. 리스트에서 특별한 노드를 찾는다.
-    2. 그 노드 뒤에 새로운 노드를 삽입한다.
-     */
-
-    // read 함수
+    // function for searching data
     fun nodeAt(index: Int): Node<T>? {
         var currentNode = head
         var currentIndex = 0
@@ -123,7 +168,7 @@ class LinkedList<T : Any> : Iterable<T>, Collection<T>, MutableIterable<T> {
         return newNode
     }
 
-    //delete 함수들
+    // functions for deleting data
     fun pop(): T? {
         if (isEmpty()) return null
         else {
