@@ -20,17 +20,32 @@ infix fun String.example(function: () -> Unit) {
     println()
 }
 
-// Challenge 1 : Reverse a linked list - Solution 1
-fun <T:Any> LinkedList<T>.printInReverse(){
+// Challenge 1 : Reverse a linked list
+fun <T : Any> LinkedList<T>.printInReverse() {
     this.nodeAt(0)?.printInReverse()
 }
 
-fun <T:Any> Node<T>.printInReverse(){
+fun <T : Any> Node<T>.printInReverse() {
     this.next?.printInReverse()
 
-    if(this.next != null){
+    if (this.next != null) {
         print(" <- ")
     }
     print(this.value.toString())
+}
+
+// Challenge 2 : The item in the middle
+fun <T : Any> LinkedList<T>.getMiddle(): Node<T>? {
+    var slow = this.nodeAt(0)
+    var fast = this.nodeAt(0)
+
+    while (fast != null) {
+        fast = fast.next
+        if (fast != null) {
+            fast = fast.next
+            slow = slow?.next
+        }
+    }
+    return slow
 }
 

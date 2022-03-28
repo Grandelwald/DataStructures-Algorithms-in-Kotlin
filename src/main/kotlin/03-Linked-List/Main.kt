@@ -131,7 +131,7 @@ fun main() {
         list.add(5)
 
         println(list)
-        list.retainAll(listOf(3,4,5))
+        list.retainAll(listOf(3, 4, 5))
         println(list)
     }
 
@@ -144,18 +144,25 @@ fun main() {
         list.add(5)
 
         println(list)
-        list.removeAll(listOf(3,4,5))
+        list.removeAll(listOf(3, 4, 5))
         println(list)
     }
 
     "reverse linked list" example {
         val list = LinkedList<Int>()
-        list.append(3).append(2).append(1).append(4).append(5)
+            .apply { append(3).append(2).append(1).append(4).append(5) }
         println(list)
 
         list.printInReverse()
     }
 
+    "print middle" example {
+        val list = LinkedList<Int>()
+            .apply { append(3).append(2).append(1).append(4).append(5) }
+        println(list)
+
+        println(list.getMiddle()?.value)
+    }
 }
 
 
