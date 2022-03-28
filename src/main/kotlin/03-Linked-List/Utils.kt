@@ -20,7 +20,7 @@ infix fun String.example(function: () -> Unit) {
     println()
 }
 
-// Challenge 1 : Reverse a linked list
+// Challenge 1 : Printing a reversed linked list
 fun <T : Any> LinkedList<T>.printInReverse() {
     this.nodeAt(0)?.printInReverse()
 }
@@ -47,5 +47,23 @@ fun <T : Any> LinkedList<T>.getMiddle(): Node<T>? {
         }
     }
     return slow
+}
+
+//Challenge 3 : Reverse a linked list
+private fun <T:Any> addInReverse(list: LinkedList<T>, node:Node<T>) {
+    val next = node.next
+    if (next != null){
+        addInReverse(list, next)
+    }
+    list.append(node.value)
+}
+
+fun <T:Any> LinkedList<T>.reversed() : LinkedList<T> {
+    val result = LinkedList<T>()
+    val head = this.nodeAt(0)
+    if(head!=null){
+        addInReverse(result,head)
+    }
+    return result
 }
 

@@ -163,6 +163,15 @@ fun main() {
 
         println(list.getMiddle()?.value)
     }
+
+    "reverse list" example {
+        val list = LinkedList<Int>()
+            .apply { append(3).append(2).append(1).append(4).append(5)
+        }
+
+        println("Original: $list")
+        println("Reversed: ${list.reversed()}")
+    }
 }
 
 
