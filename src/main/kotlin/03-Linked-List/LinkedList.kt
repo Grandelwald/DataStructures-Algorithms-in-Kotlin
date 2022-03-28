@@ -128,16 +128,17 @@ class LinkedList<T : Any>
     }
 
     // size == 0 인지 판단후 0 이면 push 사용하고 아니면 append
-    fun append(value: T) {
+    fun append(value: T) : LinkedList<T> {
         if (isEmpty()) {
             push(value)
-            return
+            return this
         }
         val newNode = Node(value = value, next = null)
         tail!!.next = newNode
 
         tail = newNode
         size++
+        return this
     }
 
     // function for searching data

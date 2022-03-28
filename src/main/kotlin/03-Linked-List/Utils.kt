@@ -19,3 +19,18 @@ infix fun String.example(function: () -> Unit) {
     function()
     println()
 }
+
+// Challenge 1 : Reverse a linked list - Solution 1
+fun <T:Any> LinkedList<T>.printInReverse(){
+    this.nodeAt(0)?.printInReverse()
+}
+
+fun <T:Any> Node<T>.printInReverse(){
+    this.next?.printInReverse()
+
+    if(this.next != null){
+        print(" <- ")
+    }
+    print(this.value.toString())
+}
+

@@ -147,4 +147,15 @@ fun main() {
         list.removeAll(listOf(3,4,5))
         println(list)
     }
+
+    "reverse linked list" example {
+        val list = LinkedList<Int>()
+        list.append(3).append(2).append(1).append(4).append(5)
+        println(list)
+
+        list.printInReverse()
+    }
+
 }
+
+
