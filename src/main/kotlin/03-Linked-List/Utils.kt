@@ -1,4 +1,8 @@
-package `03-Linked-List`/*
+package `03-Linked-List`
+
+import `04-Stack`.StackImpl
+
+/*
 `03-Linked-List`.example 함수
 `03-Linked-List`.example 함수는 확장함수다.
 
@@ -50,50 +54,63 @@ fun <T : Any> LinkedList<T>.getMiddle(): Node<T>? {
 }
 
 //Challenge 3 : Reverse a linked list
-private fun <T:Any> addInReverse(list: LinkedList<T>, node:Node<T>) {
+private fun <T : Any> addInReverse(list: LinkedList<T>, node: Node<T>) {
     val next = node.next
-    if (next != null){
+    if (next != null) {
         addInReverse(list, next)
     }
     list.append(node.value)
 }
 
-fun <T:Any> LinkedList<T>.reversed() : LinkedList<T> {
+fun <T : Any> LinkedList<T>.reversed(): LinkedList<T> {
     val result = LinkedList<T>()
     val head = this.nodeAt(0)
-    if(head!=null){
-        addInReverse(result,head)
+    if (head != null) {
+        addInReverse(result, head)
     }
     return result
 }
 
 //Challenge 4 : Merging two linked lists
-fun <T:Comparable<T>> LinkedList<T>.mergeSorted( otherList:LinkedList<T>)
-: LinkedList<T> {
-    if(this.isEmpty()) return otherList
-    if(otherList.isEmpty()) return this
+fun <T : Comparable<T>> LinkedList<T>.mergeSorted(otherList: LinkedList<T>)
+        : LinkedList<T> {
+    if (this.isEmpty()) return otherList
+    if (otherList.isEmpty()) return this
 
     val result = LinkedList<T>()
     var left = nodeAt(0)
     var right = otherList.nodeAt(0)
 
     while (left != null && right != null) {
-        if(left.value < right.value) {
-            left = append(result,left)
-        }
-        else{
-            right = append(result,right)
+        if (left.value < right.value) {
+            left = append(result, left)
+        } else {
+            right = append(result, right)
         }
     }
     return result
 }
 
-private fun <T:Comparable<T>> append(
+private fun <T : Comparable<T>> append(
     result: LinkedList<T>,
     node: Node<T>
-) : Node<T>? {
+): Node<T>? {
     result.append(node.value)
     return node.next
+}
+
+fun <T:Any> LinkedList<T>.printInReverseByStack() {
+    val stack = StackImpl<T>()
+
+    for (node in this) {
+        stack.push(node)
+    }
+
+    var node = stack.pop()
+    while(node != null) {
+        println(node)
+        node = stack.pop()
+    }
 }
 
 

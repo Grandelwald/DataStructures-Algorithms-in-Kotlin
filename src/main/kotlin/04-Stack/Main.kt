@@ -28,5 +28,4 @@ fun main() {
         print(stack)
         println("Popped: ${stack.pop()}")
     }
-
 }
